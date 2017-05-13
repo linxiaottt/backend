@@ -1,13 +1,13 @@
-import KoaRouter from 'koa-router'
-import controllers from '../controllers/index.js'
+import KoaRouter from 'koa-router';
+import controllers from '../controllers/index.js';
 
-const router = new KoaRouter()
+const router = new KoaRouter();
 
 router
   .get('/', function (ctx, next) {
     ctx.body = '禁止访问！'
   }) // HOME 路由
   .post('/api/user/login', controllers.user.Login)
-  .post('/api/user/register', controllers.user.Register)
+  .post('/api/user/register', controllers.user.Register);
 
-module.exports = router
+module.exports = router;
