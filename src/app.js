@@ -28,14 +28,13 @@ app
     })) // Set Session
     .use(PluginLoader(SystemConfig.System_plugin_path))
     .use((ctx, next) => {
-        if (ctx.request.header.host.split(':')[0] === 'localhost' || ctx.request.header.host.split(':')[0] === '127.0.0.1') {
-            ctx.set('Access-Control-Allow-Origin', '*')
-        } else {
-            ctx.set('Access-Control-Allow-Origin', SystemConfig.HTTP_server_host)
-        }
-        ctx.set('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+        const { origin, host } = ctx.headers;
+        const url = origin || host;
+        ctx.set('Access-Control-Allow-Origin', url)
+        ctx.set('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization, Content-Length')
         ctx.set('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS')
         ctx.set('Access-Control-Allow-Credentials', true) // 允许带上 cookie
+        ctx.set('X-Powered-By',' 3.2.1')
         return next()
     })
     .use(MainRoutes.routes())
