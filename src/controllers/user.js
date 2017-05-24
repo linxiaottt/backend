@@ -6,7 +6,6 @@ export default (ctx) => {
 export async function Login (ctx) {
     const { username, password } = ctx.request.body;
     if (ctx.session.id) return ctx.body = { code: 400, msg: '用户已登录' };
-    console.log(ctx.session);
     if (!(username && password)) return ctx.body = { code: 400, msg: '请输入账号密码' };
     const result = await TUser.find({ where: { username, password}, attributes: ['id', 'username', 'preview']});
     if (!(result && result.id)) return ctx.body = { code: 400, msg: '账号密码错误' };

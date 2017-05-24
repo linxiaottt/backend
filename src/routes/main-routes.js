@@ -10,6 +10,9 @@ router
   .get('/api/user/getMyInfo', controllers.user.GetMyInfo)
   .get('/api/user/logout', controllers.user.Logout)
   .post('/api/user/login', controllers.user.Login)
-  .post('/api/user/register', controllers.user.Register);
+  .post('/api/user/register', controllers.user.Register)
+  .post('/api/collection/collect', controllers.collection.Collect)
+  .get('/api/collection/unCollect', controllers.collection.UnCollect)
+  .get('/api/collection/getCollected', controllers.collection.GetCollected)
 
 module.exports = router;
