@@ -10,6 +10,7 @@ export async function Login (ctx) {
     const result = await TUser.find({ where: { username, password}, attributes: ['id', 'username', 'preview']});
     if (!(result && result.id)) return ctx.body = { code: 400, msg: '账号密码错误' };
     ctx.session = { id: result.id,  username };
+    ctx.cookies.set('s','ssss', { httpOnly: false });
     return ctx.body = { code: 200, msg: '登陆成功', data: result };
 }
 export async function Logout (ctx) {

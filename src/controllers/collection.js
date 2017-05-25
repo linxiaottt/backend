@@ -29,3 +29,7 @@ export async function GetCollected (ctx) {
     const result = await TCollection.findAll({ where: { username }});
     return ctx.body = { code: 200, msg: '查询成功', data: result };
 }
+
+export async function HasCollected (ctx) {
+
+}

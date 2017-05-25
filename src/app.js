@@ -24,15 +24,17 @@ app
     })) // Processing request
     .use(KoaStatic('assets', path.resolve(__dirname, '../assets'))) // Static resource
     .use(KoaSession({
-        key: SystemConfig.Session_Key
+        // maxAge: 24 * 60 * 60 * 1000,
+        key: SystemConfig.Session_Key,
+
     })) // Set Session
     .use(PluginLoader(SystemConfig.System_plugin_path))
     .use((ctx, next) => {
         const { origin, host } = ctx.headers;
         const url = origin || host;
         ctx.set('Access-Control-Allow-Origin', url)
-        ctx.set('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization, Content-Length')
-        ctx.set('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS')
+        ctx.set('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With, Cookie')
+        ctx.set('Access-Control-Allow-Methods', 'PUT,POST,GET,DELETE,OPTIONS')
         ctx.set('Access-Control-Allow-Credentials', true) // 允许带上 cookie
         ctx.set('X-Powered-By',' 3.2.1')
         return next()

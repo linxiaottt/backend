@@ -10,7 +10,7 @@ export let System = {
   HTTP_server_port: '65534', // HTTP服务器端口号
   System_country: 'zh-cn', // 所在国家的国家代码
   System_plugin_path: path.join(__dirname, './plugins'), // 插件路径
-  Session_Key: 'RESTfulAPI', // 生产环境务必随机设置一个值
+  Session_Key: 'Analyze', // 生产环境务必随机设置一个值
   db_type: 'mysql' // 数据库类型
 }
 

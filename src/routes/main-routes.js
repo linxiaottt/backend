@@ -14,5 +14,5 @@ router
   .post('/api/collection/collect', controllers.collection.Collect)
   .get('/api/collection/unCollect', controllers.collection.UnCollect)
   .get('/api/collection/getCollected', controllers.collection.GetCollected)
-
+  .get('/api/collection/hasCollected', controllers.collection.HasCollected)
 module.exports = router;
