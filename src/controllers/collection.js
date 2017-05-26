@@ -31,5 +31,14 @@ export async function GetCollected (ctx) {
 }
 
 export async function HasCollected (ctx) {
+    let has = false;
+    let { username } = ctx.query;
+    const { code, market } = ctx.query;
+    username = username || ctx.session.username;
+    if (!username) return ctx.body = { code: 400, msg: '请登录' };
+    const result = await TCollection.findOne({ where: { stockId: code, stockMarket: market, username } });
+    console.log(result);
+    if (result && result.id) has = true;
+    return ctx.body = { code: 200, data: { has }};
 
 }
