@@ -2,13 +2,13 @@ import { TCollection } from '../models';
 
 export async function Collect (ctx) {
     let { username } = ctx.request.body;
-    const { code, market } = ctx.request.body;
+    const { code, market, name } = ctx.request.body;
     username = username || ctx.session.username;
     if (!username) return ctx.body = { code: 400, msg: '请登录' };
     if (!(code && market)) return ctx.body = { code: 400, msg: '股票信息有误，收藏失败' };
     const result = await TCollection.find({ where: { username, stockId: code, stockMarket: market } });
     if (result && result.id) return ctx.body = { code: 400, msg: '收藏已存在' };
-    const status = await TCollection.create({ username, stockId: code, stockMarket: market });
+    const status = await TCollection.create({ username, stockId: code, stockMarket: market, stockName: name });
     return ctx.body = { code: 200, msg: '收藏成功', data: { success: true }};
 }
 export async function UnCollect (ctx) {
@@ -19,7 +19,7 @@ export async function UnCollect (ctx) {
     if (!(code && market)) return ctx.body = { code: 400, msg: '股票信息有误，取消收藏失败' };
     const result = await TCollection.destroy({ where: { username, stockId: code, stockMarket: market } });
     if (result && result > 0) return ctx.body = { code: 200, msg: '取消收藏成功' };
-    return ctx.body = { code: 400, msg: '取消收藏失败'};
+    return ctx.body = { code: 400, msg: '未收藏该股票'};
 }
 
 export async function GetCollected (ctx) {
@@ -36,8 +36,7 @@ export async function HasCollected (ctx) {
     const { code, market } = ctx.query;
     username = username || ctx.session.username;
     if (!username) return ctx.body = { code: 400, msg: '请登录' };
-    const result = await TCollection.findOne({ where: { stockId: code, stockMarket: market, username } });
-    console.log(result);
+    const result = await TCollection.find({ where: { stockId: code, stockMarket: market, username } });
     if (result && result.id) has = true;
     return ctx.body = { code: 200, data: { has }};
 

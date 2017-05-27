@@ -24,7 +24,7 @@ app
     })) // Processing request
     .use(KoaStatic('assets', path.resolve(__dirname, '../assets'))) // Static resource
     .use(KoaSession({
-        // maxAge: 24 * 60 * 60 * 1000,
+        maxAge: 24 * 60 * 60 * 1000,
         key: SystemConfig.Session_Key,
 
     })) // Set Session

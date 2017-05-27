@@ -9,6 +9,10 @@ module.exports = function (sequelize, DataTypes) {
             field: 'stock_id',
             type: DataTypes.STRING(40),
         },
+        stockName: {
+            field: 'stock_name',
+            type: DataTypes.STRING(20),
+        },
         stockMarket: {
             field: 'stock_market',
             type: DataTypes.STRING(10),
